@@ -1,0 +1,27 @@
+Update Report - 2024-08-15 20:35:57
+
+Windows11: Failure
+Error: Max retries reached. Unable to connect.
+
+Ubuntu-server: Success
+Output: Hit:1 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+Error: 
+
+AlmaLinux9: Success
+Output: Last metadata expiration check: 1:05:55 ago on Thu 15 Aug 2024 02:00:54 PM UTC.
+Dependencies resolved.
+Nothing to do.
+Complete!
+
+Error: 
+

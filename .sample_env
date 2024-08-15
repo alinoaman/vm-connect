@@ -1,0 +1,16 @@
+# .sample_env file
+
+# Windows VM
+WINDOWS_IP=your_windows_ip_here
+WINDOWS_USERNAME=your_windows_username_here
+WINDOWS_PASSWORD=your_windows_password_here
+
+# Ubuntu VM
+UBUNTU_IP=your_ubuntu_ip_here
+UBUNTU_USERNAME=your_ubuntu_username_here
+UBUNTU_KEYFILE=path_to_your_ubuntu_keyfile_here
+
+# AlmaLinux VM
+ALMALINUX_IP=your_almalinux_ip_here
+ALMALINUX_USERNAME=your_almalinux_username_here
+ALMALINUX_KEYFILE=path_to_your_almalinux_keyfile_here
