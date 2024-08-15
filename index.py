@@ -61,7 +61,7 @@ def update_machine(vm, max_retries=2):
         
         except (paramiko.AuthenticationException, paramiko.SSHException, socket.error) as e:
             logging.error(f"Connection attempt {attempt + 1} failed for {vm['name']}: {str(e)}. Retrying...")
-            time.sleep(2 ** attempt)  # Exponential backoff
+            time.sleep(2 ** attempt)  
         
         finally:
             client.close()
@@ -78,7 +78,7 @@ def update_all_machines():
     
     logging.info("Update completed. Report saved to Text_report.txt")
 
-# Schedule the task for every Thursday at 1:16 AM
+# Schedule the task 
 schedule.every().thursday.at("20:35").do(update_all_machines)
 
 if __name__ == "__main__":
