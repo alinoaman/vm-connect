@@ -76,7 +76,7 @@ def update_all_machines():
     with open("Text_report.txt", "w") as f:
         f.write(report)
     
-    logging.info("Update completed. Report saved to update_report.txt")
+    logging.info("Update completed. Report saved to Text_report.txt")
 
 # Schedule the task for every Thursday at 1:16 AM
 schedule.every().thursday.at("20:35").do(update_all_machines)
