@@ -4,10 +4,10 @@ pipeline {
     environment {
         UBUNTU_IP = '13.200.246.128'
         UBUNTU_USERNAME = 'ubuntu'
-        UBUNTU_KEYFILE = '/path/to/your/KeyTask.pem'
+        UBUNTU_KEYFILE = 'E:/KeyTask.pem'
         ALMALINUX_IP = '65.0.91.5'
         ALMALINUX_USERNAME = 'ec2-user'
-        ALMALINUX_KEYFILE = '/path/to/your/KeyTask.pem'
+        ALMALINUX_KEYFILE = 'E:/KeyTask.pem'
     }
 
     stages {
