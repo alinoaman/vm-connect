@@ -78,13 +78,8 @@ def update_all_machines():
     
     logging.info("Update completed. Report saved to Text_report.txt")
 
-<<<<<<< HEAD
 
 schedule.every().saturday.at("01:47").do(update_all_machines)
-=======
-# Schedule the task 
-schedule.every().thursday.at("20:35").do(update_all_machines)
->>>>>>> 2224f0809d03c38e17cbb2d1565c435582fe5b5f
 
 if __name__ == "__main__":
     logging.info("Scheduler started. Waiting for Thursday at 01:47 AM...")
