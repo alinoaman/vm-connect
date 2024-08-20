@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        UBUNTU_IP = '13.200.246.128'
+        UBUNTU_IP = '3.110.136.138'
         UBUNTU_USERNAME = 'ubuntu'
         UBUNTU_KEYFILE = 'E:/KeyTask.pem'
-        ALMALINUX_IP = '65.0.91.5'
+        ALMALINUX_IP = '65.1.132.224'
         ALMALINUX_USERNAME = 'ec2-user'
         ALMALINUX_KEYFILE = 'E:/KeyTask.pem'
     }
