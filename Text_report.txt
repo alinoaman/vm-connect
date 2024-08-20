@@ -1,13 +1,24 @@
-Update Report - 2024-08-15 20:35:57
+Update Report - 2024-08-17 01:47:37
 
 Windows11: Failure
 Error: Max retries reached. Unable to connect.
 
 Ubuntu-server: Success
 Output: Hit:1 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates InRelease
+Get:2 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
 Hit:3 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Get:4 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:5 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [348 kB]
+Get:6 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [87.9 kB]
+Get:7 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [5764 B]
+Get:8 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [323 kB]
+Get:9 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [136 kB]
+Get:10 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [12.8 kB]
+Get:11 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [294 kB]
+Get:12 http://security.ubuntu.com/ubuntu noble-security/main Translation-en [68.1 kB]
+Get:13 http://security.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [3768 B]
+Get:14 http://security.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [9412 B]
+Fetched 1541 kB in 4s (395 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -18,9 +29,90 @@ Calculating upgrade...
 Error: 
 
 AlmaLinux9: Success
-Output: Last metadata expiration check: 1:05:55 ago on Thu 15 Aug 2024 02:00:54 PM UTC.
+Output: AlmaLinux 9 - AppStream                         5.9 kB/s | 4.2 kB     00:00    
+AlmaLinux 9 - AppStream                          16 MB/s |  12 MB     00:00    
+AlmaLinux 9 - BaseOS                            5.9 kB/s | 3.8 kB     00:00    
+AlmaLinux 9 - BaseOS                             15 MB/s |  11 MB     00:00    
+AlmaLinux 9 - Extras                            5.0 kB/s | 3.3 kB     00:00    
+AlmaLinux 9 - Extras                             30 kB/s |  20 kB     00:00    
 Dependencies resolved.
-Nothing to do.
+================================================================================
+ Package                 Arch       Version                    Repository  Size
+================================================================================
+Installing:
+ kernel                  x86_64     5.14.0-427.31.1.el9_4      baseos     5.0 M
+ kernel-core             x86_64     5.14.0-427.31.1.el9_4      baseos      20 M
+ kernel-modules          x86_64     5.14.0-427.31.1.el9_4      baseos      38 M
+ kernel-modules-core     x86_64     5.14.0-427.31.1.el9_4      baseos      32 M
+Upgrading:
+ kernel-tools            x86_64     5.14.0-427.31.1.el9_4      baseos     5.2 M
+ kernel-tools-libs       x86_64     5.14.0-427.31.1.el9_4      baseos     5.0 M
+ python3-perf            x86_64     5.14.0-427.31.1.el9_4      baseos     5.1 M
+
+Transaction Summary
+================================================================================
+Install  4 Packages
+Upgrade  3 Packages
+
+Total download size: 111 M
+Downloading Packages:
+(1/7): kernel-5.14.0-427.31.1.el9_4.x86_64.rpm   48 MB/s | 5.0 MB     00:00    
+(2/7): kernel-core-5.14.0-427.31.1.el9_4.x86_64  55 MB/s |  20 MB     00:00    
+(3/7): kernel-tools-5.14.0-427.31.1.el9_4.x86_6  59 MB/s | 5.2 MB     00:00    
+(4/7): kernel-tools-libs-5.14.0-427.31.1.el9_4.  59 MB/s | 5.0 MB     00:00    
+(5/7): python3-perf-5.14.0-427.31.1.el9_4.x86_6  60 MB/s | 5.1 MB     00:00    
+(6/7): kernel-modules-5.14.0-427.31.1.el9_4.x86  41 MB/s |  38 MB     00:00    
+(7/7): kernel-modules-core-5.14.0-427.31.1.el9_  30 MB/s |  32 MB     00:01    
+--------------------------------------------------------------------------------
+Total                                            61 MB/s | 111 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : kernel-modules-core-5.14.0-427.31.1.el9_4.x86_64      1/10 
+  Installing       : kernel-core-5.14.0-427.31.1.el9_4.x86_64              2/10 
+  Running scriptlet: kernel-core-5.14.0-427.31.1.el9_4.x86_64              2/10 
+  Installing       : kernel-modules-5.14.0-427.31.1.el9_4.x86_64           3/10 
+  Running scriptlet: kernel-modules-5.14.0-427.31.1.el9_4.x86_64           3/10 
+  Upgrading        : kernel-tools-libs-5.14.0-427.31.1.el9_4.x86_64        4/10 
+  Running scriptlet: kernel-tools-libs-5.14.0-427.31.1.el9_4.x86_64        4/10 
+  Upgrading        : kernel-tools-5.14.0-427.31.1.el9_4.x86_64             5/10 
+  Running scriptlet: kernel-tools-5.14.0-427.31.1.el9_4.x86_64             5/10 
+  Installing       : kernel-5.14.0-427.31.1.el9_4.x86_64                   6/10 
+  Upgrading        : python3-perf-5.14.0-427.31.1.el9_4.x86_64             7/10 
+  Running scriptlet: kernel-tools-5.14.0-427.28.1.el9_4.x86_64             8/10 
+  Cleanup          : kernel-tools-5.14.0-427.28.1.el9_4.x86_64             8/10 
+  Running scriptlet: kernel-tools-5.14.0-427.28.1.el9_4.x86_64             8/10 
+  Cleanup          : kernel-tools-libs-5.14.0-427.28.1.el9_4.x86_64        9/10 
+  Running scriptlet: kernel-tools-libs-5.14.0-427.28.1.el9_4.x86_64        9/10 
+  Cleanup          : python3-perf-5.14.0-427.28.1.el9_4.x86_64            10/10 
+  Running scriptlet: kernel-modules-core-5.14.0-427.31.1.el9_4.x86_64     10/10 
+  Running scriptlet: kernel-core-5.14.0-427.31.1.el9_4.x86_64             10/10 
+  Running scriptlet: kernel-modules-5.14.0-427.31.1.el9_4.x86_64          10/10 
+  Running scriptlet: python3-perf-5.14.0-427.28.1.el9_4.x86_64            10/10 
+  Verifying        : kernel-5.14.0-427.31.1.el9_4.x86_64                   1/10 
+  Verifying        : kernel-core-5.14.0-427.31.1.el9_4.x86_64              2/10 
+  Verifying        : kernel-modules-5.14.0-427.31.1.el9_4.x86_64           3/10 
+  Verifying        : kernel-modules-core-5.14.0-427.31.1.el9_4.x86_64      4/10 
+  Verifying        : kernel-tools-5.14.0-427.31.1.el9_4.x86_64             5/10 
+  Verifying        : kernel-tools-5.14.0-427.28.1.el9_4.x86_64             6/10 
+  Verifying        : kernel-tools-libs-5.14.0-427.31.1.el9_4.x86_64        7/10 
+  Verifying        : kernel-tools-libs-5.14.0-427.28.1.el9_4.x86_64        8/10 
+  Verifying        : python3-perf-5.14.0-427.31.1.el9_4.x86_64             9/10 
+  Verifying        : python3-perf-5.14.0-427.28.1.el9_4.x86_64            10/10 
+
+Upgraded:
+  kernel-tools-5.14.0-427.31.1.el9_4.x86_64                                     
+  kernel-tools-libs-5.14.0-427.31.1.el9_4.x86_64                                
+  python3-perf-5.14.0-427.31.1.el9_4.x86_64                                     
+Installed:
+  kernel-5.14.0-427.31.1.el9_4.x86_64                                           
+  kernel-core-5.14.0-427.31.1.el9_4.x86_64                                      
+  kernel-modules-5.14.0-427.31.1.el9_4.x86_64                                   
+  kernel-modules-core-5.14.0-427.31.1.el9_4.x86_64                              
+
 Complete!
 
 Error: 
