@@ -1,28 +1,16 @@
 pipeline {
     agent any
-    
+
     environment {
-        WINDOWS_IP = '35.154.183.221'
-        WINDOWS_USERNAME = 'Administrator'
-        WINDOWS_PASSWORD = 'H$=oTOr(ynBgdiO$fkfn&M%VM5)PG9ru'
-        UBUNTU_IP = '3.110.158.205'
+        UBUNTU_IP = '13.200.246.128'
         UBUNTU_USERNAME = 'ubuntu'
-        UBUNTU_KEYFILE = 'E:/KeyTask.pem'
-        ALMALINUX_IP = '15.206.117.176'
+        UBUNTU_KEYFILE = '/path/to/your/KeyTask.pem'
+        ALMALINUX_IP = '65.0.91.5'
         ALMALINUX_USERNAME = 'ec2-user'
-        ALMALINUX_KEYFILE = 'E:/KeyTask.pem'
+        ALMALINUX_KEYFILE = '/path/to/your/KeyTask.pem'
     }
-    
+
     stages {
-        stage('Update Windows VM') {
-            steps {
-                script {
-                    sh '''
-                    sshpass -p "$WINDOWS_PASSWORD" ssh $WINDOWS_USERNAME@$WINDOWS_IP "powershell.exe 'Get-WindowsUpdate -Install -AcceptAll -AutoReboot'"
-                    '''
-                }
-            }
-        }
         stage('Update Ubuntu VM') {
             steps {
                 script {
@@ -42,7 +30,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             echo 'The update process has finished.'
