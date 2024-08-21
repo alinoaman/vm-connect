@@ -16,26 +16,36 @@ pipeline {
                     def report = "Update Report - ${new Date().format('yyyy-MM-dd HH:mm:ss')}\n\n"
                     
                     // Update Ubuntu
-                    def ubuntuResult = sh(script: """
+                    def ubuntuExitCode = sh(script: """
                         ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${UBUNTU_USERNAME}@${UBUNTU_IP} '
                         sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
                         '
-                    """, returnStatus: true, returnStdout: true)
+                    """, returnStatus: true)
                     
-                    report += "Ubuntu-server: ${ubuntuResult.status == 0 ? 'Success' : 'Failure'}\n"
-                    report += "Output: ${ubuntuResult.stdout}\n"
-                    report += "Error: ${ubuntuResult.stderr}\n\n"
+                    def ubuntuOutput = sh(script: """
+                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${UBUNTU_USERNAME}@${UBUNTU_IP} '
+                        sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+                        '
+                    """, returnStdout: true).trim()
+                    
+                    report += "Ubuntu-server: ${ubuntuExitCode == 0 ? 'Success' : 'Failure'}\n"
+                    report += "Output: ${ubuntuOutput}\n\n"
                     
                     // Update AlmaLinux
-                    def almaLinuxResult = sh(script: """
+                    def almaLinuxExitCode = sh(script: """
                         ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${ALMALINUX_USERNAME}@${ALMALINUX_IP} '
                         sudo dnf update -y
                         '
-                    """, returnStatus: true, returnStdout: true)
+                    """, returnStatus: true)
                     
-                    report += "AlmaLinux9: ${almaLinuxResult.status == 0 ? 'Success' : 'Failure'}\n"
-                    report += "Output: ${almaLinuxResult.stdout}\n"
-                    report += "Error: ${almaLinuxResult.stderr}\n"
+                    def almaLinuxOutput = sh(script: """
+                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${ALMALINUX_USERNAME}@${ALMALINUX_IP} '
+                        sudo dnf update -y
+                        '
+                    """, returnStdout: true).trim()
+                    
+                    report += "AlmaLinux9: ${almaLinuxExitCode == 0 ? 'Success' : 'Failure'}\n"
+                    report += "Output: ${almaLinuxOutput}\n"
                     
                     // Write report to file
                     writeFile file: 'Text_report.txt', text: report
