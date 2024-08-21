@@ -6,7 +6,10 @@ pipeline {
         UBUNTU_USERNAME = 'ubuntu'
         ALMALINUX_IP = '13.127.245.214'
         ALMALINUX_USERNAME = 'ec2-user'
+        WINDOWS_IP = '13.234.117.122'  // Replace with actual Windows 11 IP
+        WINDOWS_USERNAME = 'Administrator'  // Replace with actual Windows username
         SSH_KEY = credentials('ubuntu-almalinux-ssh-key')
+        WINDOWS_PASSWORD = credentials('windows-password')
     }
 
     stages {
@@ -45,7 +48,23 @@ pipeline {
                     """, returnStdout: true).trim()
                     
                     report += "AlmaLinux9: ${almaLinuxExitCode == 0 ? 'Success' : 'Failure'}\n"
-                    report += "Output: ${almaLinuxOutput}\n"
+                    report += "Output: ${almaLinuxOutput}\n\n"
+                    
+                    // Update Windows 11
+                    def windowsExitCode = bat(script: """
+                        powershell -Command "
+                        \$secpasswd = ConvertTo-SecureString '${WINDOWS_PASSWORD}' -AsPlainText -Force
+                        \$cred = New-Object System.Management.Automation.PSCredential ('${WINDOWS_USERNAME}', \$secpasswd)
+                        Invoke-Command -ComputerName ${WINDOWS_IP} -Credential \$cred -ScriptBlock {
+                            Install-Module PSWindowsUpdate -Force
+                            Get-WindowsUpdate -Install -AcceptAll -AutoReboot
+                        }"
+                    """, returnStatus: true)
+                    
+                    report += "Windows11: ${windowsExitCode == 0 ? 'Success' : 'Failure'}\n"
+                    if (windowsExitCode != 0) {
+                        report += "Error: Max retries reached. Unable to connect.\n\n"
+                    }
                     
                     // Write report to file
                     writeFile file: 'Text_report.txt', text: report
