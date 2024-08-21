@@ -6,8 +6,8 @@ pipeline {
         UBUNTU_USERNAME = 'ubuntu'
         ALMALINUX_IP = '13.127.245.214'
         ALMALINUX_USERNAME = 'ec2-user'
-        WINDOWS_IP = '13.234.117.122'  // Replace with actual Windows 11 IP
-        WINDOWS_USERNAME = 'Administrator'  // Replace with actual Windows username
+        WINDOWS_IP = '13.234.117.122'
+        WINDOWS_USERNAME = 'Administrator'
         SSH_KEY = credentials('ubuntu-almalinux-ssh-key')
         WINDOWS_PASSWORD = credentials('windows-password')
     }
@@ -51,14 +51,11 @@ pipeline {
                     report += "Output: ${almaLinuxOutput}\n\n"
                     
                     // Update Windows 11
-                    def windowsExitCode = bat(script: """
-                        powershell -Command "
-                        \$secpasswd = ConvertTo-SecureString '${WINDOWS_PASSWORD}' -AsPlainText -Force
-                        \$cred = New-Object System.Management.Automation.PSCredential ('${WINDOWS_USERNAME}', \$secpasswd)
-                        Invoke-Command -ComputerName ${WINDOWS_IP} -Credential \$cred -ScriptBlock {
-                            Install-Module PSWindowsUpdate -Force
-                            Get-WindowsUpdate -Install -AcceptAll -AutoReboot
-                        }"
+                    def windowsExitCode = sh(script: """
+                        ssh -o StrictHostKeyChecking=no ${WINDOWS_USERNAME}@${WINDOWS_IP} powershell -Command "
+                        Install-Module PSWindowsUpdate -Force
+                        Get-WindowsUpdate -Install -AcceptAll -AutoReboot
+                        "
                     """, returnStatus: true)
                     
                     report += "Windows11: ${windowsExitCode == 0 ? 'Success' : 'Failure'}\n"
