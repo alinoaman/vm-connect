@@ -2,42 +2,44 @@ pipeline {
     agent any
 
     environment {
-        UBUNTU_IP = '13.126.209.98'  // Replace with your Ubuntu VM's IP
-        ALMALINUX_IP = '13.127.245.214'  // Replace with your AlmaLinux VM's IP
-        SSH_KEY = credentials('ubuntu-almalinux-ssh-key')  // Replace with your Jenkins credential ID for the PEM key
+        UBUNTU_IP = '65.2.80.117'
+        UBUNTU_USERNAME = 'ubuntu'
+        ALMALINUX_IP = '3.109.152.1'
+        ALMALINUX_USERNAME = 'ec2-user'
+        SSH_KEY = credentials('ubuntu-almalinux-ssh-key')
     }
 
     stages {
-        stage('Fetch OS Information') {
+        stage('Update Machines') {
             steps {
                 script {
-                    def ubuntuInfo = sh(script: """
-                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ubuntu@${UBUNTU_IP} '
-                        echo "OS: Ubuntu"
-                        echo "Kernel: \$(uname -r)"
-                        echo "Shell: \$SHELL"
-                        echo "Package Manager: apt"
-                        echo "Desktop Environment: \$XDG_CURRENT_DESKTOP"
+                    def report = "Update Report - ${new Date().format('yyyy-MM-dd HH:mm:ss')}\n\n"
+                    
+                    // Update Ubuntu
+                    def ubuntuResult = sh(script: """
+                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${UBUNTU_USERNAME}@${UBUNTU_IP} '
+                        sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
                         '
-                    """, returnStdout: true).trim()
+                    """, returnStatus: true, returnStdout: true)
                     
-                    def almaLinuxInfo = sh(script: """
-                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ec2-user@${ALMALINUX_IP} '
-                        echo "OS: AlmaLinux"
-                        echo "Kernel: \$(uname -r)"
-                        echo "Shell: \$SHELL"
-                        echo "Package Manager: dnf"
-                        echo "Desktop Environment: \$XDG_CURRENT_DESKTOP"
+                    report += "Ubuntu-server: ${ubuntuResult.status == 0 ? 'Success' : 'Failure'}\n"
+                    report += "Output: ${ubuntuResult.stdout}\n"
+                    report += "Error: ${ubuntuResult.stderr}\n\n"
+                    
+                    // Update AlmaLinux
+                    def almaLinuxResult = sh(script: """
+                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${ALMALINUX_USERNAME}@${ALMALINUX_IP} '
+                        sudo dnf update -y
                         '
-                    """, returnStdout: true).trim()
+                    """, returnStatus: true, returnStdout: true)
                     
-                    writeFile file: 'ubuntu_info.txt', text: ubuntuInfo
-                    writeFile file: 'almalinux_info.txt', text: almaLinuxInfo
+                    report += "AlmaLinux9: ${almaLinuxResult.status == 0 ? 'Success' : 'Failure'}\n"
+                    report += "Output: ${almaLinuxResult.stdout}\n"
+                    report += "Error: ${almaLinuxResult.stderr}\n"
                     
-                    def combinedInfo = "Ubuntu Information:\n${ubuntuInfo}\n\nAlmaLinux Information:\n${almaLinuxInfo}"
-                    writeFile file: 'combined_info.txt', text: combinedInfo
-                    
-                    archiveArtifacts artifacts: '*.txt', fingerprint: true
+                    // Write report to file
+                    writeFile file: 'Text_report.txt', text: report
+                    archiveArtifacts artifacts: 'Text_report.txt', fingerprint: true
                 }
             }
         }
