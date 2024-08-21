@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        UBUNTU_IP = '65.2.80.117'
+        UBUNTU_IP = '13.126.209.98'
         UBUNTU_USERNAME = 'ubuntu'
-        ALMALINUX_IP = '3.109.152.1'
+        ALMALINUX_IP = '13.127.245.214'
         ALMALINUX_USERNAME = 'ec2-user'
         SSH_KEY = credentials('ubuntu-almalinux-ssh-key')
     }
