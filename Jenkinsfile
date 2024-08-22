@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        UBUNTU_IP = '13.126.209.98'
+        UBUNTU_IP = '3.110.103.168'
         UBUNTU_USERNAME = 'ubuntu'
-        ALMALINUX_IP = '13.127.245.214'
+        ALMALINUX_IP = '13.127.249.159'
         ALMALINUX_USERNAME = 'ec2-user'
-        WINDOWS_IP = '13.234.117.122'
+        WINDOWS_IP = '43.204.29.229'
         WINDOWS_USERNAME = 'Administrator'
         SSH_KEY = credentials('ubuntu-almalinux-ssh-key')
         WINDOWS_PASSWORD = credentials('windows-password')
